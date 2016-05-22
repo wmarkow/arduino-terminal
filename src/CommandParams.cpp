@@ -60,12 +60,7 @@ bool CommandParams::appendChar(char byte)
 		if(readRowIndex >= INCOMING_BUFFER_MAX_WORDS_IN_LINE)
 		{
 			// incoming buffer overflow
-			Serial.flush();
-			Serial.println();
-			Serial.println(F("error: to many words per line"));
-			Serial.flush();
 			reset();
-
 			return false;
 		}
 	}
@@ -77,12 +72,7 @@ bool CommandParams::appendChar(char byte)
 	if(readColumnIndex > INCOMING_BUFFER_MAX_CHARACTERS_IN_WORD)
 	{
 		// incoming buffer overflow
-		Serial.flush();
-		Serial.println();
-		Serial.println(F("error: to many characters per word"));
-		Serial.flush();
 		reset();
-
 		return false;
 	}
 

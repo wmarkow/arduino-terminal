@@ -11,7 +11,6 @@
 #define INCOMING_BUFFER_MAX_WORDS_IN_LINE 6
 #define INCOMING_BUFFER_MAX_CHARACTERS_IN_WORD 12
 
-#include <Arduino.h>
 #include <stdint.h>
 
 class CommandParams

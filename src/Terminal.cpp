@@ -88,6 +88,10 @@ bool Terminal::readString()
 		if(!commandParams.appendChar(byte))
 		{
 			// some kind of error while apending char
+			Serial.flush();
+			Serial.println();
+			Serial.println(F("error: terminal buffer overflow"));
+			Serial.flush();
 		}
 	}
 

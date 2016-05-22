@@ -8,8 +8,7 @@
 #ifndef TERMINAL_COMMANDS_ABSTRACTCOMMAND_H_
 #define TERMINAL_COMMANDS_ABSTRACTCOMMAND_H_
 
-#include <Arduino.h>
-#include "../CommandParams.h"
+#include "CommandParams.h"
 
 class AbstractCommand
 {

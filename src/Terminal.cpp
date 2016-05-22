@@ -45,7 +45,7 @@ void Terminal::loop() {
 		printTerminalReadyIfNeeded();
 		return;
 	}
-
+/*
 	if(command.equals(F("ifconfig")))
 	{
 		ifconfig.process(&commandParams);
@@ -70,7 +70,7 @@ void Terminal::loop() {
 		printTerminalReadyIfNeeded();
 		return;
 	}
-
+*/
 	Serial.print(command);
 	Serial.println(F(": unknown command"));
 
@@ -110,20 +110,21 @@ void Terminal::printTerminalReadyIfNeeded()
 
 bool Terminal::areBackgroundCommands()
 {
+	/*
 	if(ping.isBackground())
 	{
 		return true;
 	}
-
+*/
 	return false;
 }
 
 void Terminal::performBackgroundCommands()
 {
-	ping.loopBackgroundIfNeeded();
+	//ping.loopBackgroundIfNeeded();
 }
 
 void Terminal::cancelBackgroundCommands()
 {
-	ping.cancelBackground();
+	//ping.cancelBackground();
 }

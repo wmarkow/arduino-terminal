@@ -6,7 +6,9 @@
  */
 #include "Terminal.h"
 
-void Terminal::println(String &message) {
+#include <string.h>
+
+void Terminal::println(char* message) {
 	Serial.println(message);
 }
 
@@ -19,9 +21,8 @@ void Terminal::loop() {
 		return;
 	}
 
-	String command = commandParams.getParam(0);
-
-	if(command.equals(F("break")))
+	char* command = commandParams.getParam(0);
+	if(strcmp(command, (char*)F("break")) == 0)
 	{
 		cancelBackgroundCommands();
 
@@ -39,7 +40,7 @@ void Terminal::loop() {
 		return;
 	}
 
-	if(command.equals(""))
+	if(strcmp(command, (char*)F("")) == 0)
 	{
 		commandParams.reset();
 		printTerminalReadyIfNeeded();

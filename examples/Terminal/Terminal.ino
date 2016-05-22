@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <Terminal.h>
 
 Terminal terminal;

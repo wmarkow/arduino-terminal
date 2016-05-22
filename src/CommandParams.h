@@ -13,7 +13,6 @@
 
 #include <Arduino.h>
 #include <stdint.h>
-#include <WString.h>
 
 class CommandParams
 {
@@ -23,7 +22,7 @@ private:
 	uint8_t readColumnIndex = 0;
 	bool endOfWordDetected = false;
 public:
-	String getParam(uint8_t index);
+	char* getParam(uint8_t index);
 	uint8_t getNumberOfParameters();
 	void reset();
 	bool appendChar(char data);

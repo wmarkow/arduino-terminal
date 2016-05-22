@@ -7,9 +7,9 @@
 
 #include "CommandParams.h"
 
-String CommandParams::getParam(uint8_t index)
+char* CommandParams::getParam(uint8_t index)
 {
-	return String(readBuffer[index]);
+	return readBuffer[index];
 }
 
 void CommandParams::reset()

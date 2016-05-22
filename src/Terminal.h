@@ -23,7 +23,7 @@ private:
 	void performBackgroundCommands();
 	void cancelBackgroundCommands();
 public:
-	void println(String &message);
+	void println(char* message);
 	void loop();
 	bool readString();
 };

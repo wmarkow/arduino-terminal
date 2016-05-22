@@ -21,11 +21,13 @@ private:
 	uint8_t readRowIndex = 0;
 	uint8_t readColumnIndex = 0;
 	bool endOfWordDetected = false;
+	bool commandDetected = false;
 public:
 	char* getParam(uint8_t index);
 	uint8_t getNumberOfParameters();
 	void reset();
 	bool appendChar(char data);
+	bool isCommandDetected();
 };
 
 #endif /* TERMINAL_COMMANDPARAMS_H_ */

@@ -85,13 +85,13 @@ bool Terminal::readString()
 	{
 		char byte = Serial.read();
 
-		if(commandParams.appendChar(byte))
+		if(!commandParams.appendChar(byte))
 		{
-			return true;
+			// some kind of error while apending char
 		}
 	}
 
-	return false;
+	return commandParams.isCommandDetected();
 }
 
 void Terminal::printTerminalReady()

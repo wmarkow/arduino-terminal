@@ -16,6 +16,8 @@ void CommandParams::reset()
 {
 	readRowIndex = 0;
 	readColumnIndex = 0;
+	endOfWordDetected = false;
+	commandDetected = false;
 }
 
 uint8_t CommandParams::getNumberOfParameters()
@@ -35,6 +37,7 @@ bool CommandParams::appendChar(char byte)
 	{
 		// end of line
 		readBuffer[readRowIndex][readColumnIndex] = 0;
+		commandDetected = true;
 		return true;
 	}
 
@@ -43,7 +46,7 @@ bool CommandParams::appendChar(char byte)
 		// end of word in line
 		endOfWordDetected = true;
 		readBuffer[readRowIndex][readColumnIndex] = 0;
-		return false;
+		return true;
 	}
 
 	if(byte != ' ' && endOfWordDetected)
@@ -83,5 +86,10 @@ bool CommandParams::appendChar(char byte)
 		return false;
 	}
 
-	return false;
+	return true;
+}
+
+bool CommandParams::isCommandDetected()
+{
+	return this->commandDetected;
 }

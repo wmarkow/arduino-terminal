@@ -8,8 +8,13 @@
 
 #include <string.h>
 
+Terminal::Terminal(HardwareSerial* serial)
+{
+	this->serial = serial;
+}
+
 void Terminal::println(char* message) {
-	Serial.println(message);
+	serial->println(message);
 }
 
 void Terminal::loop() {
@@ -35,7 +40,7 @@ void Terminal::loop() {
 	if(areBackgroundCommands())
 	{
 		commandParams.reset();
-		Serial.println(F("terminal busy"));
+		serial->println(F("terminal busy"));
 
 		return;
 	}
@@ -72,8 +77,8 @@ void Terminal::loop() {
 		return;
 	}
 */
-	Serial.print(command);
-	Serial.println(F(": unknown command"));
+	serial->print(command);
+	serial->println(F(": unknown command"));
 
 	commandParams.reset();
 	printTerminalReady();
@@ -81,17 +86,17 @@ void Terminal::loop() {
 
 bool Terminal::readString()
 {
-	while(Serial.available())
+	while(serial->available())
 	{
-		char byte = Serial.read();
+		char byte = serial->read();
 
 		if(!commandParams.appendChar(byte))
 		{
 			// some kind of error while apending char
-			Serial.flush();
-			Serial.println();
-			Serial.println(F("error: terminal buffer overflow"));
-			Serial.flush();
+			serial->flush();
+			serial->println();
+			serial->println(F("error: terminal buffer overflow"));
+			serial->flush();
 		}
 	}
 
@@ -100,7 +105,7 @@ bool Terminal::readString()
 
 void Terminal::printTerminalReady()
 {
-	Serial.print(F("arduino$"));
+	serial->print(F("arduino$"));
 }
 
 void Terminal::printTerminalReadyIfNeeded()

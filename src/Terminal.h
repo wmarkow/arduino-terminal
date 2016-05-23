@@ -8,13 +8,14 @@
 #ifndef TERMINAL_H_
 #define TERMINAL_H_
 
-#include <Arduino.h>
+#include <HardwareSerial.h>
 #include "CommandParams.h"
 
 class Terminal {
 
 private:
 	CommandParams commandParams;
+	HardwareSerial* serial;
 
 	/* commands */
 
@@ -24,6 +25,7 @@ private:
 	void performBackgroundCommands();
 	void cancelBackgroundCommands();
 public:
+	Terminal(HardwareSerial* serial);
 	void println(char* message);
 	void loop();
 	bool readString();

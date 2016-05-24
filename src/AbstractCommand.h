@@ -21,7 +21,7 @@ public:
 	AbstractCommand();
 	bool isBackground();
 	void cancelBackground();
-	virtual char* getName() = 0;
+	virtual const __FlashStringHelper* getName() = 0;
 	virtual void process(CommandParams *params, HardwareSerial *serial) = 0;
 	virtual void processBackground(HardwareSerial *serial) = 0;
 };

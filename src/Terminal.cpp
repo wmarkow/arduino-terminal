@@ -139,7 +139,7 @@ AbstractCommand* Terminal::getCommandByName(char* commandName)
 	for(uint8_t q = 0 ; q < commands->getSize() ; q ++)
 	{
 		AbstractCommand* command = commands->get(q);
-		if(strcmp(command->getName(), commandName) == 0)
+		if(strcmp_P(commandName, (char*)command->getName()) == 0)
 		{
 			return command;
 		}

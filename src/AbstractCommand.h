@@ -8,21 +8,22 @@
 #ifndef TERMINAL_COMMANDS_ABSTRACTCOMMAND_H_
 #define TERMINAL_COMMANDS_ABSTRACTCOMMAND_H_
 
+#include <HardwareSerial.h>
 #include "CommandParams.h"
 
 class AbstractCommand
 {
 private:
-	bool background = false;
+	bool background;
 protected:
 	void setBackground(bool background);
 public:
-	virtual void process(CommandParams *params);
-	virtual void loopBackgroundIfNeeded();
-	virtual void cancelBackground();
+	AbstractCommand();
 	bool isBackground();
+	void cancelBackground();
+	virtual char* getName() = 0;
+	virtual void process(CommandParams *params, HardwareSerial *serial) = 0;
+	virtual void processBackground(HardwareSerial *serial) = 0;
 };
-
-
 
 #endif /* TERMINAL_COMMANDS_ABSTRACTCOMMAND_H_ */

@@ -9,23 +9,29 @@
 #define TERMINAL_H_
 
 #include <HardwareSerial.h>
+#include <Array.h>
 #include "CommandParams.h"
+#include "AbstractCommand.h"
 
 class Terminal {
 
+	friend class HelpCommand;
 private:
 	CommandParams commandParams;
 	HardwareSerial* serial;
 
 	/* commands */
+	Array<AbstractCommand> *commands;
 
 	void printTerminalReady();
 	void printTerminalReadyIfNeeded();
 	bool areBackgroundCommands();
 	void performBackgroundCommands();
 	void cancelBackgroundCommands();
+	AbstractCommand* getCommandByName(char* name);
+	void processHelp();
 public:
-	Terminal(HardwareSerial* serial);
+	Terminal(HardwareSerial* serial, Array<AbstractCommand>* commands);
 	void println(char* message);
 	void loop();
 	bool readString();

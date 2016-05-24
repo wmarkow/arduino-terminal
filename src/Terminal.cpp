@@ -8,9 +8,10 @@
 
 #include <string.h>
 
-Terminal::Terminal(HardwareSerial* serial)
+Terminal::Terminal(HardwareSerial* serial, Array<AbstractCommand>* commands)
 {
 	this->serial = serial;
+	this->commands = commands;
 }
 
 void Terminal::println(char* message) {
@@ -27,7 +28,7 @@ void Terminal::loop() {
 	}
 
 	char* command = commandParams.getParam(0);
-	if(strcmp(command, (char*)F("break")) == 0)
+	if(strcmp_P(command, (char*)F("break")) == 0)
 	{
 		cancelBackgroundCommands();
 
@@ -45,38 +46,32 @@ void Terminal::loop() {
 		return;
 	}
 
-	if(strcmp(command, (char*)F("")) == 0)
+	if(strcmp_P(command, (char*)F("")) == 0)
 	{
 		commandParams.reset();
 		printTerminalReadyIfNeeded();
 		return;
 	}
-/*
-	if(command.equals(F("ifconfig")))
+
+	if(strcmp_P(command, (char*)F("help")) == 0)
 	{
-		ifconfig.process(&commandParams);
+		processHelp();
 
 		commandParams.reset();
 		printTerminalReadyIfNeeded();
 		return;
 	}
-	if(command.equals(F("ping")))
-	{
-		ping.process(&commandParams);
-		commandParams.reset();
-		printTerminalReadyIfNeeded();
 
-		return;
-	}
-	if(command.equals(F("flooder")))
+	AbstractCommand* commandToExecute = getCommandByName(command);
+	if(commandToExecute != 0)
 	{
-		flooderCmd.process(&commandParams);
-
+		commandToExecute->process(&commandParams, this->serial);
 		commandParams.reset();
+
 		printTerminalReadyIfNeeded();
 		return;
 	}
-*/
+
 	serial->print(command);
 	serial->println(F(": unknown command"));
 
@@ -137,4 +132,33 @@ void Terminal::performBackgroundCommands()
 void Terminal::cancelBackgroundCommands()
 {
 	//ping.cancelBackground();
+}
+
+AbstractCommand* Terminal::getCommandByName(char* commandName)
+{
+	for(uint8_t q = 0 ; q < commands->getSize() ; q ++)
+	{
+		AbstractCommand* command = commands->get(q);
+		if(strcmp(command->getName(), commandName) == 0)
+		{
+			return command;
+		}
+	}
+
+	return 0;
+}
+
+void Terminal::processHelp()
+{
+	if(commands->getSize() == 0)
+	{
+		serial->println(F("No commands available."));
+		return;
+	}
+
+	for(uint8_t q = 0 ; q < commands->getSize() ; q ++)
+	{
+		AbstractCommand* command = commands->get(q);
+		serial->println(command->getName());
+	}
 }

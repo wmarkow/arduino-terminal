@@ -7,13 +7,14 @@
 
 #include "AbstractCommand.h"
 
+AbstractCommand::AbstractCommand()
+{
+	this->background = false;
+}
+
 bool AbstractCommand::isBackground()
 {
 	return background;
-}
-void AbstractCommand::loopBackgroundIfNeeded()
-{
-	// do nothing
 }
 
 void AbstractCommand::cancelBackground()
@@ -25,5 +26,3 @@ void AbstractCommand::setBackground(bool background)
 {
 	this->background = background;
 }
-
-

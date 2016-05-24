@@ -68,7 +68,15 @@ void Terminal::loop() {
 		commandToExecute->process(&commandParams, this->serial);
 		commandParams.reset();
 
-		printTerminalReadyIfNeeded();
+		if(commandToExecute->isBackground())
+		{
+			this->backgroundCommand = commandToExecute;
+		}
+		else
+		{
+			printTerminalReadyIfNeeded();
+		}
+
 		return;
 	}
 
@@ -115,23 +123,30 @@ void Terminal::printTerminalReadyIfNeeded()
 
 bool Terminal::areBackgroundCommands()
 {
-	/*
-	if(ping.isBackground())
+
+	if(this->backgroundCommand != 0)
 	{
 		return true;
 	}
-*/
+
 	return false;
 }
 
 void Terminal::performBackgroundCommands()
 {
-	//ping.loopBackgroundIfNeeded();
+	if(this->backgroundCommand != 0)
+	{
+		this->backgroundCommand->processBackground(serial);
+	}
 }
 
 void Terminal::cancelBackgroundCommands()
 {
-	//ping.cancelBackground();
+	if(this->backgroundCommand != 0)
+	{
+		this->backgroundCommand->cancelBackground();
+		this->backgroundCommand = 0;
+	}
 }
 
 AbstractCommand* Terminal::getCommandByName(char* commandName)

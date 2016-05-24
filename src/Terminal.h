@@ -22,6 +22,7 @@ private:
 
 	/* commands */
 	Array<AbstractCommand> *commands;
+	AbstractCommand* backgroundCommand = 0;
 
 	void printTerminalReady();
 	void printTerminalReadyIfNeeded();

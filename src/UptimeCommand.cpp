@@ -14,13 +14,29 @@ const __FlashStringHelper* UptimeCommand::getName()
 
 void UptimeCommand::process(CommandParams *params, HardwareSerial *serial)
 {
-	unsigned long uptimeInMillis = millis();
-	serial->print(uptimeInMillis);
+	lastProcessTime = millis();
+	serial->print(lastProcessTime);
 	serial->println(F(" ms up"));
+
+	if(params->getNumberOfParameters() == 2)
+	{
+		if(strcmp_P(params->getParam(1), (char*)F("-f")) == 0)
+		{
+			this->setBackground(true);
+		}
+	}
 }
 
 void UptimeCommand::processBackground(HardwareSerial *serial)
 {
+	unsigned long currentMillis = millis();
+	if(currentMillis < lastProcessTime + 1000L)
+	{
+		return;
+	}
 
+	lastProcessTime = currentMillis;
+	serial->print(lastProcessTime);
+	serial->println(F(" ms up"));
 }
 

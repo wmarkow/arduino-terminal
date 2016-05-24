@@ -13,6 +13,8 @@
 
 class UptimeCommand : public AbstractCommand
 {
+private:
+	unsigned long lastProcessTime = 0;
 public:
 	const __FlashStringHelper* getName();
 	void process(CommandParams *params, HardwareSerial *serial);

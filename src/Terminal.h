@@ -21,7 +21,7 @@ private:
 	HardwareSerial* serial;
 
 	/* commands */
-	Array<AbstractCommand> *commands;
+	Array<AbstractCommand*> *commands;
 	AbstractCommand* backgroundCommand = 0;
 
 	void printTerminalReady();
@@ -32,7 +32,7 @@ private:
 	AbstractCommand* getCommandByName(char* name);
 	void processHelp();
 public:
-	Terminal(HardwareSerial* serial, Array<AbstractCommand>* commands);
+	Terminal(HardwareSerial* serial, Array<AbstractCommand*> *commands);
 	void println(char* message);
 	void loop();
 	bool readString();

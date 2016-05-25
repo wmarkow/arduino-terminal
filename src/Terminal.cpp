@@ -8,7 +8,7 @@
 
 #include <string.h>
 
-Terminal::Terminal(HardwareSerial* serial, Array<AbstractCommand>* commands)
+Terminal::Terminal(HardwareSerial* serial, Array<AbstractCommand*> *commands)
 {
 	this->serial = serial;
 	this->commands = commands;

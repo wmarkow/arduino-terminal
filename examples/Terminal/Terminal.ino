@@ -4,8 +4,8 @@
 #include <Terminal.h>
 #include <UptimeCommand.h>
 
-FixedSizeArray<AbstractCommand, 5> commands;
-Array<AbstractCommand> *array = &commands;
+FixedSizeArray<AbstractCommand*, 5> commands;
+Array<AbstractCommand*> *array = &commands;
 UptimeCommand uptimeCommand;
 
 Terminal terminal(&Serial, array);

@@ -15,7 +15,6 @@
 
 class Terminal {
 
-	friend class HelpCommand;
 private:
 	CommandParams commandParams;
 	HardwareSerial* serial;

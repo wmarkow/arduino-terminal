@@ -34,6 +34,7 @@
                     <packaging>arduinolib</packaging>
                     <file>${project.build.directory}/${project.artifactId}-${project.version}.zip</file>
                     <generatePom>false</generatePom>
+                    <pomFile>pom.xml</pomFile>
                 </configuration>
             </plugin>
 

@@ -92,6 +92,8 @@ bool Terminal::readString()
 	while(serial->available())
 	{
 		char byte = serial->read();
+        // echo the character back to the terminal 
+		serial->write(byte);
 
 		if(!commandParams.appendChar(byte))
 		{

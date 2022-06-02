@@ -35,7 +35,13 @@ bool CommandParams::appendChar(char byte)
 
 	if(byte == '\r')
 	{
-		// end of line
+		// carrier return, just ignore this character
+		return true;
+	}
+
+	if(byte == '\n')
+	{
+		// line feed, treat this as an end-of-line
 		readBuffer[readRowIndex][readColumnIndex] = 0;
 		commandDetected = true;
 		return true;
